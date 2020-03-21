@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gdg_search"
         android:name="se.stylianosgakis.gdgfinder.search.GdgListFragment"
-        android:label="GDG Search"/>
+        android:label="GDG Search" />
     <fragment
         android:id="@+id/home"
         android:name="se.stylianosgakis.gdgfinder.home.HomeFragment"
@@ -27,14 +27,14 @@
         android:label="Apply"
         tools:layout="@layout/add_gdg_fragment" />
 
-    <!--<fragment-->
-    <!--android:id="@+id/gdgDetailFragment"-->
-    <!--android:name="se.stylianosgakis.gdg.gdgdetail.GdgDetailFragment"-->
-    <!--android:label="fragment_overview"-->
-    <!--tools:layout="@layout/fragment_gdg_detail" >-->
-    <!--<argument-->
-    <!--android:name="selectedChapter"-->
-    <!--app:argType="se.stylianosgakis.gdg.network.GdgChapter"/>-->
-    <!--<action android:id="@+id/action_gdgDetailFragment_to_gdgListFragment" app:destination="@id/gdgListFragment"/>-->
-    <!--</fragment>-->
+    <!--<fragment
+    android:id="@+id/gdgDetailFragment"
+    android:name="se.stylianosgakis.gdg.gdgdetail.GdgDetailFragment"
+    android:label="fragment_overview"
+    tools:layout="@layout/fragment_gdg_detail" >
+    <argument
+    android:name="selectedChapter"
+    app:argType="se.stylianosgakis.gdg.network.GdgChapter"/>
+    <action android:id="@+id/action_gdgDetailFragment_to_gdgListFragment" app:destination="@id/gdgListFragment"/>
+    </fragment>-->
 </navigation>
