@@ -25,6 +25,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_normal"
+                app:singleLine="true"
+                app:singleSelection="true" />
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView

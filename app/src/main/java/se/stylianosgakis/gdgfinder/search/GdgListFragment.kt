@@ -16,7 +16,9 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import se.stylianosgakis.gdgfinder.R
 import se.stylianosgakis.gdgfinder.databinding.FragmentGdgListBinding
 
 private const val LOCATION_PERMISSION_REQUEST = 1
@@ -49,6 +51,32 @@ class GdgListFragment : Fragment() {
                     "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
                     Snackbar.LENGTH_LONG
                 ).show()
+            }
+        })
+
+        viewModel.regionList.observe(viewLifecycleOwner, Observer { regionList ->
+            // Map the regions to a list of Chips
+            regionList?.let {
+                // 1: Make a new Chip view for each item in the list
+                val chipGroup = binding.chipGroup
+                val chipGroupInflater = LayoutInflater.from(chipGroup.context)
+                // Map the list of Regions into a list if Chip
+                val chipList = it.map { regionName ->
+                    val chip = chipGroupInflater
+                        .inflate(R.layout.region_chip, chipGroup, false) as Chip
+                    chip.text = regionName
+                    chip.tag = regionName
+                    chip.setOnCheckedChangeListener { button, isChecked ->
+                        viewModel.onFilterChanged(button.tag as String, isChecked)
+                    }
+                    chip
+                }
+                // 2: Remove any views already in the ChipGroup
+                chipGroup.removeAllViews()
+                // 3: Add the new children to the ChipGroup
+                chipList.forEach { chip ->
+                    chipGroup.addView(chip)
+                }
             }
         })
 
