@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout">
+    android:id="@+id/layout"
+    tools:context="se.stylianosgakis.gdgfinder.search.GdgListFragment">
 
     <data>
 
@@ -20,14 +21,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(chapter)}"
-        tools:context="se.stylianosgakis.gdg.gdglist.GdgListFragment">
+        android:onClick="@{() -> clickListener.onClick(chapter)}">
 
         <ImageView
             android:id="@+id/gdg_image"
             android:layout_width="50dp"
             android:layout_height="76dp"
-            android:layout_marginLeft="@dimen/spacing_normal"
+            android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="26dp"
             android:layout_marginBottom="26dp"
             android:contentDescription="TODO"
