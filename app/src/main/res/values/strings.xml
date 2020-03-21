@@ -17,7 +17,7 @@
         them.
     </string>
     <string name="about_google_developer_groups">About Google Developer Groups</string>
-    <string name="gdg_description_bullets">️Run by passionate individuals in local developer communities\n
+    <string name="gdg_description_bullets">Run by passionate individuals in local developer communities\n
         ️A group to share ideas and network with fellow developers \n
         ️A place to learn about Google technologies and development tools \n
         Open to and free for all interested
@@ -34,7 +34,7 @@
     <string name="city_label">city</string>
     <string name="country_label">country</string>
     <string name="region_label">region</string>
-    <string name="enter_motivation">Please enter your motivation in 1-2 sentences</string>
+    <string name="enter_motivation">Please enter your motivation in 1\-2 sentences</string>
     <string name="submitted">Submitted, no need to submit again</string>
     <string name="done">Done</string>
     <string name="submit">Submit</string>
