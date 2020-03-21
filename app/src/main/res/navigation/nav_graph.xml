@@ -6,10 +6,6 @@
     app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/gdg_search"
-        android:name="se.stylianosgakis.gdgfinder.search.GdgListFragment"
-        android:label="GDG Search" />
-    <fragment
         android:id="@+id/home"
         android:name="se.stylianosgakis.gdgfinder.home.HomeFragment"
         android:label="Home"
@@ -21,6 +17,11 @@
             android:id="@+id/action_homeFragment_to_addGdgFragment"
             app:destination="@id/gdg_apply" />
     </fragment>
+    <fragment
+        android:id="@+id/gdg_search"
+        android:name="se.stylianosgakis.gdgfinder.search.GdgListFragment"
+        android:label="GDG Search"
+        tools:layout="@layout/fragment_gdg_list" />
     <fragment
         android:id="@+id/gdg_apply"
         android:name="se.stylianosgakis.gdgfinder.add.AddGdgFragment"
