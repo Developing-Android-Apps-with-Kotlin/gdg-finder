@@ -10,11 +10,11 @@ import se.stylianosgakis.gdgfinder.search.GdgListAdapter
  * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
  */
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<GdgChapter>?) {
-    val adapter = recyclerView.adapter as GdgListAdapter
+fun RecyclerView.bindRecyclerView(data: List<GdgChapter>?) {
+    val adapter = adapter as GdgListAdapter
     adapter.submitList(data) {
         // scroll the list to the top after the diffs are calculated and posted
-        recyclerView.scrollToPosition(0)
+        scrollToPosition(0)
     }
 }
 

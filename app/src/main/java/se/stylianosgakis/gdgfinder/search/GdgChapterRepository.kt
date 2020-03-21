@@ -1,18 +1,17 @@
 package se.stylianosgakis.gdgfinder.search
 
 import android.location.Location
-import se.stylianosgakis.gdgfinder.network.GdgApiService
-import se.stylianosgakis.gdgfinder.network.GdgChapter
-import se.stylianosgakis.gdgfinder.network.GdgResponse
-import se.stylianosgakis.gdgfinder.network.LatLong
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
+import se.stylianosgakis.gdgfinder.network.GdgApiService
+import se.stylianosgakis.gdgfinder.network.GdgChapter
+import se.stylianosgakis.gdgfinder.network.GdgResponse
+import se.stylianosgakis.gdgfinder.network.LatLong
 
 class GdgChapterRepository(gdgApiService: GdgApiService) {
-
     /**
      * A single network request, the results won't change. For this lesson we did not add an offline cache for simplicity
      * and the result will be cached in memory.
@@ -27,10 +26,8 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      * This will be cancelled whenever location changes, as the old results are no longer valid.
      */
     private var inProgressSort: Deferred<SortedData>? = null
-
     var isFullyInitialized = false
         private set
-
 
     /**
      * Get the chapters list for a specified filter.
@@ -42,7 +39,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      */
     suspend fun getChaptersForFilter(filter: String?): List<GdgChapter> {
         val data = sortedData()
-        return when(filter) {
+        return when (filter) {
             null -> data.chapters
             else -> data.chaptersByRegion.getOrElse(filter) { emptyList() }
         }
@@ -66,10 +63,8 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     private suspend fun sortedData(): SortedData = withContext(Dispatchers.Main) {
         // We need to ensure we're on Dispatchers.Main so that this is not running on multiple Dispatchers and we
         // modify the member inProgressSort.
-
         // Since this was called from viewModelScope, that will always be a simple if check (not expensive), but
         // by specifying the dispatcher we can protect against incorrect usage.
-
         // if there's currently a sort running (or completed) wait for it to complete and return that value
         // otherwise, start a new sort with no location (the user has likely not given us permission to use location
         // yet)
@@ -112,12 +107,10 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     suspend fun onLocationChanged(location: Location) {
         // We need to ensure we're on Dispatchers.Main so that this is not running on multiple Dispatchers and we
         // modify the member inProgressSort.
-
         // Since this was called from viewModelScope, that will always be a simple if check (not expensive), but
         // by specifying the dispatcher we can protect against incorrect usage.
         withContext(Dispatchers.Main) {
             isFullyInitialized = true
-
             // cancel any in progress sorts, their result is not valid anymore.
             inProgressSort?.cancel()
 
@@ -136,7 +129,6 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
         val filters: List<String>,
         val chaptersByRegion: Map<String, List<GdgChapter>>
     ) {
-
         companion object {
             /**
              * Sort the data from a [GdgResponse] by the specified location.
@@ -150,15 +142,14 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
                     val chapters: List<GdgChapter> = response.chapters.sortByDistanceFrom(location)
                     // use distinctBy which will maintain the input order - this will have the effect of making
                     // a filter list sorted by the distance from the current location
-                    val filters: List<String> = chapters.map { it.region } .distinctBy { it }
+                    val filters: List<String> = chapters.map { it.region }.distinctBy { it }
                     // group the chapters by region so that filter queries don't require any work
-                    val chaptersByRegion: Map<String, List<GdgChapter>> = chapters.groupBy { it.region }
+                    val chaptersByRegion: Map<String, List<GdgChapter>> =
+                        chapters.groupBy { it.region }
                     // return the sorted result
                     SortedData(chapters, filters, chaptersByRegion)
                 }
-
             }
-
 
             /**
              * Sort a list of GdgChapter by their distance from the specified location.
@@ -168,7 +159,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             private fun List<GdgChapter>.sortByDistanceFrom(currentLocation: Location?): List<GdgChapter> {
                 currentLocation ?: return this
 
-                return sortedBy { distanceBetween(it.geo, currentLocation)}
+                return sortedBy { distanceBetween(it.geo, currentLocation) }
             }
 
             /**
@@ -176,7 +167,13 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
              */
             private fun distanceBetween(start: LatLong, currentLocation: Location): Float {
                 val results = FloatArray(3)
-                Location.distanceBetween(start.lat, start.long, currentLocation.latitude, currentLocation.longitude, results)
+                Location.distanceBetween(
+                    start.lat,
+                    start.long,
+                    currentLocation.latitude,
+                    currentLocation.longitude,
+                    results
+                )
                 return results[0]
             }
         }

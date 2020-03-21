@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import se.stylianosgakis.gdgfinder.databinding.ListItemBinding
 import se.stylianosgakis.gdgfinder.network.GdgChapter
 import se.stylianosgakis.gdgfinder.search.GdgListAdapter.GdgListViewHolder
-import se.stylianosgakis.gdgfinder.databinding.ListItemBinding
 
-class GdgListAdapter(val clickListener: GdgClickListener): ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback){
-    companion object DiffCallback : DiffUtil.ItemCallback<GdgChapter>() {
+class GdgListAdapter(
+    val clickListener: GdgClickListener
+) : ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback()) {
+    class DiffCallback : DiffUtil.ItemCallback<GdgChapter>() {
         override fun areItemsTheSame(oldItem: GdgChapter, newItem: GdgChapter): Boolean {
             return oldItem === newItem
         }
@@ -20,8 +22,29 @@ class GdgListAdapter(val clickListener: GdgClickListener): ListAdapter<GdgChapte
         }
     }
 
-    class GdgListViewHolder(private var binding: ListItemBinding):
-        RecyclerView.ViewHolder(binding.root) {
+    /**
+     * Part of the RecyclerView adapter, called when RecyclerView needs a new [GdgListViewHolder].
+     *
+     * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
+     * to the RecyclerView such as where on the screen it was last drawn during scrolling.
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GdgListViewHolder {
+        return GdgListViewHolder.from(parent)
+    }
+
+    /**
+     * Part of the RecyclerView adapter, called when RecyclerView needs to show an item.
+     *
+     * The ViewHolder passed may be recycled, so make sure that this sets any properties that
+     * may have been set previously.
+     */
+    override fun onBindViewHolder(holder: GdgListViewHolder, position: Int) {
+        holder.bind(clickListener, getItem(position))
+    }
+
+    class GdgListViewHolder(
+        private var binding: ListItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(listener: GdgClickListener, gdgChapter: GdgChapter) {
             binding.chapter = gdgChapter
             binding.clickListener = listener
@@ -37,27 +60,6 @@ class GdgListAdapter(val clickListener: GdgClickListener): ListAdapter<GdgChapte
                 return GdgListViewHolder(binding)
             }
         }
-    }
-
-    /**
-     * Part of the RecyclerView adapter, called when RecyclerView needs a new [ViewHolder].
-     *
-     * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
-     * to the RecyclerView such as where on the screen it was last drawn during scrolling.
-     */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GdgListViewHolder {
-        return GdgListViewHolder.from(parent)
-
-    }
-
-    /**
-     * Part of the RecyclerView adapter, called when RecyclerView needs to show an item.
-     *
-     * The ViewHolder passed may be recycled, so make sure that this sets any properties that
-     * may have been set previously.
-     */
-    override fun onBindViewHolder(holder: GdgListViewHolder, position: Int) {
-        holder.bind(clickListener, getItem(position))
     }
 }
 

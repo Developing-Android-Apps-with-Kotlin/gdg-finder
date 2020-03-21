@@ -4,8 +4,6 @@ import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
-
-
 @Parcelize
 data class GdgChapter(
     @Json(name = "chapter_name") val name: String,
@@ -14,7 +12,7 @@ data class GdgChapter(
     val region: String,
     val website: String,
     val geo: LatLong
- ): Parcelable
+) : Parcelable
 
 @Parcelize
 data class LatLong(
@@ -25,11 +23,11 @@ data class LatLong(
 
 @Parcelize
 data class GdgResponse(
-        @Json(name = "filters_") val filters: Filter,
-        @Json(name = "data") val chapters: List<GdgChapter>
-): Parcelable
+    @Json(name = "filters_") val filters: Filter,
+    @Json(name = "data") val chapters: List<GdgChapter>
+) : Parcelable
 
 @Parcelize
 data class Filter(
-        @Json(name = "region") val regions: List<String>
-): Parcelable
+    @Json(name = "region") val regions: List<String>
+) : Parcelable

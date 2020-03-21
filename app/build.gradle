@@ -14,7 +14,8 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,10 +29,17 @@ android {
     dataBinding {
         enabled = true
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Multi-dex to allow over 65536 methods
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
@@ -42,7 +50,10 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     // Use viewModelScope from lifecycle-viewmodel-ktx
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha01"
+
+    // To enable `by viewModels` delegate
+    implementation "androidx.fragment:fragment-ktx:1.2.3"
 
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
