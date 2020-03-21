@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         // then setup the action bar, tell it about the DrawerLayout
         setupActionBarWithNavController(navController, binding.drawerLayout)
-        // finally setup the left drawer (called a NavigationView)
+        // finally setup the drawer (called a NavigationView)
         binding.navigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
