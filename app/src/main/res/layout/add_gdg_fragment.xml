@@ -29,7 +29,6 @@
                 android:layout_marginTop="@dimen/spacing_normal"
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:text="@string/add_gdg"
-                android:textColor="#AAAAAA"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -128,11 +127,11 @@
                 android:id="@+id/contentGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginBottom="8dp"
                 android:focusable="true"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/button"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="@dimen/spacing_normal"
                 app:layout_constraintEnd_toEndOf="@+id/EditTextRegion"
                 app:layout_constraintStart_toStartOf="@+id/EditTextRegion"
                 app:layout_constraintTop_toBottomOf="@id/EditTextRegion">
@@ -163,16 +162,13 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="40dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
                 android:layout_marginBottom="12dp"
-                android:backgroundTint="#00FF00"
                 android:contentDescription="@string/submit_button_description"
                 android:onClick="@{() -> viewModel.onSubmitApplication()}"
-                android:text="Ok"
-                android:textColor="#FF0000"
-                android:textSize="12sp"
+                android:text="@string/submit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/contentGroup" />
